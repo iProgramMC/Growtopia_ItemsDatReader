@@ -34,6 +34,7 @@ namespace ItemsDatDecoder
     {
         static string DecodeName(byte[] bytes, int len, int id)
         {
+	    // MemorySerializeEncrypted from Proton SDK
             string key = "PBG892FXX982ABC*";
             string result = "";
             for (int i = 0; i < len; i++)
