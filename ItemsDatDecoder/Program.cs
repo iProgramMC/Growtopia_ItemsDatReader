@@ -90,7 +90,7 @@ namespace ItemsDatDecoder
             byte[] header1Bytes = Encoding.UTF8.GetBytes(header1);
             streamOut.Write(header1Bytes, 0, header1Bytes.Length);
 
-            string header2 = $"unused\\{unused}\nitemCount\\{itemCount}\r\n\r\n";
+            string header2 = $"item_db_ver\\{unused}\nitem_count\\{itemCount}\r\n\r\n";
             byte[] header2Bytes = Encoding.UTF8.GetBytes(header2);
             streamOut.Write(header2Bytes, 0, header2Bytes.Length);
 
