@@ -315,13 +315,14 @@ namespace ItemsDatDecoder
                 Console.Write($"\rProcessing items {(int)((float)((float)(c + 1) / (float)itemCount) * 100.0f)}%   ");
             }
             Console.Write("\nDecoding successful.");
-            if (pause)
-            {
-                Console.WriteLine("  Press any key to quit.");
-                Console.ReadKey();
-            }
+
             streamOut.Close();
             stream.Close();
+            if (pause)
+            {
+                Console.WriteLine(" Press any key to quit.");
+                Console.ReadKey();
+            }
         }
     }
 }
