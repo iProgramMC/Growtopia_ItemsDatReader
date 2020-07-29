@@ -75,8 +75,9 @@ namespace ItemsDatDecoder
             itemCount = BitConverter.ToInt32(useForIntReading, 0);
 
             Stream streamOut = new FileStream("item_defs.txt", FileMode.OpenOrCreate);
+            // NOTE (July 29th): The variable names are not changed, but the notation is. Neither is the order, so it should still be readable by ItemsDatEncoder.
             string header1 = "// Formatting: \r\n// add_item\\id\\editType\\editCategory\\actionType\\hitSound\\itemName\\fileName\\texHash\\itemKind\\texX\\texY\\sprType\\isStripey\\" +
-                "collType\\hitsTaken\\drops\\clothingType\\rarity\\toolKind\\audioFile\\audioHash\\audioVol\\seedBase\\seedOver\\treeBase\\treeOver\\" +
+                "collType\\hitsTaken\\drops\\clothingType\\rarity\\maxItems\\audioFile\\audioHash\\animLengthMs\\seedBase\\seedOver\\treeBase\\treeOver\\" +
                 "color1BGRA\\color2BGRA\\ingredient1\\ingredient2\\growTime\\petName\\petPrefix\\petSuffix\\petAbility\\extraUnkField1\\" +
                 "\\extraOptions\\extraFilename\\extraOptions2\\extraUnknown1\\extraUnknown2\\extraUnkShort1\\extraUnkShort2\\extraUnkShort3\\isRayman\\val1\\val2\r\n" +
                 "// NOTE: audio* can also be used for updating textures if it isn't already used for audio.\r\n" +
