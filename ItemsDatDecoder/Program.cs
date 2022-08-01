@@ -1,6 +1,6 @@
 ﻿/****************************************************
-  Decoder for items.dat
-  Copyright 2019 iProgramInCpp
+  Decoder for Growtopia items.dat
+  Copyright 2019-2022 iProgramInCpp
 
   Permission is hereby granted, free of charge, to any person obtaining a 
   copy of this software and associated documentation files (the "Software"), 
@@ -46,7 +46,7 @@ namespace ItemsDatDecoder
         static void Main(string[] args)
         {
             bool pause = true;
-            Console.WriteLine("Growtopia items.dat decoder (C) 2019 iProgramInCpp");
+            Console.WriteLine("Growtopia items.dat decoder (C) 2019-2022 iProgramInCpp");
             Console.WriteLine("This program is licensed under the MIT license.");
             Console.WriteLine("View https://opensource.org/licenses/MIT for more info.");
             if (args.Length == 0)
@@ -76,17 +76,15 @@ namespace ItemsDatDecoder
 
             Stream streamOut = new FileStream("item_defs.txt", FileMode.OpenOrCreate);
             // NOTE (July 29th): The variable names are not changed, but the notation is. Neither is the order, so it should still be readable by ItemsDatEncoder.
-            string header1 = "// Formatting: \r\n// add_item\\id\\editType\\editCategory\\actionType\\hitSound\\itemName\\fileName\\texHash\\itemKind\\texX\\texY\\sprType\\isStripey\\" +
-                "collType\\hitsTaken\\drops\\clothingType\\rarity\\maxItems\\audioFile\\audioHash\\animLengthMs\\seedBase\\seedOver\\treeBase\\treeOver\\" +
+            string header1 = "// Formatting: \r\n// add_item\\id\\flagsLow\\flagsHigh\\itemType\\material\\itemName\\fileName\\texHash\\visualEffect\\texX\\texY\\sprType\\isStripey\\" +
+                "collType\\blockHealth\\drops\\clothingType\\rarity\\maxItems\\extraFile\\extraFileHash\\extraFieldNum\\seedBase\\seedOver\\treeBase\\treeOver\\" +
                 "color1BGRA\\color2BGRA\\ingredient1\\ingredient2\\growTime\\petName\\petPrefix\\petSuffix\\petAbility\\extraUnkField1\\" +
                 "\\extraOptions\\extraFilename\\extraOptions2\\extraUnknown1\\extraUnknown2\\extraUnkShort1\\extraUnkShort2\\extraUnkShort3\\isRayman\\val1\\val2\r\n" +
                 "// NOTE: audio* can also be used for updating textures if it isn't already used for audio.\r\n" +
-                "// Extracted with ItemsDatDecoder (C) 2019 iProgramInCpp\r\n" +
+                "// Extracted with ItemsDatDecoder (C) 2019-2022 iProgramInCpp\r\n" +
                 "// Everything (C) 2013-2019 RTsoft/Hamumu/Ubisoft. All rights reserved.\r\n"+
-                "// Unfortunately, I had to rely on \\ symbols instead of | because some data was not compatible. Sorry!\r\n"+
-                "// Credits to Anybody for other fields' names!\r\n"+
-                "// Credits to ness#8001 for finding item name decoding!\r\n"+
-                "// Items.dat decoder (C) 2019 iProgramInCpp\r\n\r\n";
+                "// Unfortunately, I had to rely on \\ symbols instead of | because some data already included |. Sorry!\r\n"+
+                "// Items.dat decoder (C) 2019-2022 iProgramInCpp\r\n\r\n";
 
             byte[] header1Bytes = Encoding.UTF8.GetBytes(header1);
             streamOut.Write(header1Bytes, 0, header1Bytes.Length);
@@ -298,6 +296,12 @@ namespace ItemsDatDecoder
                 bytesToWriteToStr234 = new byte[extraField5Length];
                 stream.Read(bytesToWriteToStr234, 0, extraField5Length);
                 extraFieldUnk_5 = Encoding.ASCII.GetString(bytesToWriteToStr234);
+
+                // New Version
+                if (unused > 11)
+                {
+                    stream.Seek(21, SeekOrigin.Current);
+                }
 
                 // add the item info to the file
                 string audiofilestring = audioFileStr69420;

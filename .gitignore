@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/ItemsDatDecoder/bin/Debug/items.dat
+/ItemsDatDecoder/obj/Debug
+/ItemsDatDecoder/bin/Debug
