@@ -280,7 +280,7 @@ namespace ItemsDatDecoder
                 stream.Read(useForShortReading, 0, 2);
                 unkValueShort1 = BitConverter.ToInt16(useForShortReading, 0);
 
-                stream.Seek(16 - value, SeekOrigin.Current);
+                stream.Seek(16, SeekOrigin.Current);
 
                 short unkValueShort2 = 0;
                 stream.Read(useForShortReading, 0, 2);
