@@ -1,6 +1,6 @@
 ﻿/****************************************************
   Decoder for Growtopia items.dat
-  Copyright 2019-2022 iProgramInCpp
+  Copyright 2019-2023 iProgramInCpp
 
   Permission is hereby granted, free of charge, to any person obtaining a 
   copy of this software and associated documentation files (the "Software"), 
@@ -46,7 +46,7 @@ namespace ItemsDatDecoder
         static void Main(string[] args)
         {
             bool pause = true;
-            Console.WriteLine("Growtopia items.dat decoder (C) 2019-2022 iProgramInCpp");
+            Console.WriteLine("Growtopia items.dat decoder (C) 2019-2023 iProgramInCpp");
             Console.WriteLine("This program is licensed under the MIT license.");
             Console.WriteLine("View https://opensource.org/licenses/MIT for more info.");
             if (args.Length == 0)
@@ -81,7 +81,7 @@ namespace ItemsDatDecoder
                 "color1BGRA\\color2BGRA\\ingredient1\\ingredient2\\growTime\\petName\\petPrefix\\petSuffix\\petAbility\\extraUnkField1\\" +
                 "\\extraOptions\\extraFilename\\extraOptions2\\extraUnknown1\\extraUnknown2\\extraUnkShort1\\extraUnkShort2\\extraUnkShort3\\isRayman\\val1\\val2\r\n" +
                 "// NOTE: audio* can also be used for updating textures if it isn't already used for audio.\r\n" +
-                "// Extracted with ItemsDatDecoder (C) 2019-2022 iProgramInCpp\r\n" +
+                "// Extracted with ItemsDatDecoder (C) 2019-2023 iProgramInCpp\r\n" +
                 "// Everything (C) 2013-2019 RTsoft/Hamumu/Ubisoft. All rights reserved.\r\n"+
                 "// Unfortunately, I had to rely on \\ symbols instead of | because some data already included |. Sorry!\r\n"+
                 "// Items.dat decoder (C) 2019-2022 iProgramInCpp\r\n\r\n";
@@ -280,7 +280,7 @@ namespace ItemsDatDecoder
                 stream.Read(useForShortReading, 0, 2);
                 unkValueShort1 = BitConverter.ToInt16(useForShortReading, 0);
 
-                stream.Seek(16 - value, SeekOrigin.Current);
+                stream.Seek(16, SeekOrigin.Current);
 
                 short unkValueShort2 = 0;
                 stream.Read(useForShortReading, 0, 2);
@@ -302,7 +302,16 @@ namespace ItemsDatDecoder
                 {
                     stream.Seek(21, SeekOrigin.Current);
                 }
-
+		
+		if (unused >= 15)
+                {
+                    stream.Seek(25, SeekOrigin.Current);
+                    byte[] strLenBytes = new byte[2];
+                    stream.Read(strLenBytes, 0, 2);
+                    short strLen = BitConverter.ToInt16(strLenBytes, 0);
+                    stream.Seek(strLen, SeekOrigin.Current);
+                }
+		    
                 // add the item info to the file
                 string audiofilestring = audioFileStr69420;
                 string file_ = $"add_item\\{itemID}\\{editableType}\\{editableCategory}\\{actionType}\\{hitSound}\\{decodedItemName}\\" +
